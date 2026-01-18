@@ -1,1 +1,29 @@
+// COS30008 - 2026 - Problem set 1
 
+// Nguyen Hoang Phuc Anh - 105551545
+
+#include "Polygon.h"
+
+#include <stdexcept>
+
+using namespace std;
+
+float Polygon::getSignedArea() const
+{
+    float Result = 0.0f;
+
+    if ( fNumberOfVertices > 2 )
+    {
+        for ( size_t i = 0; i < fNumberOfVertices; i++ )
+        {
+            const Vector2D& Current = fVertices[i];
+            const Vector2D& Next = fVertices[(i + 1) % fNumberOfVertices];
+
+            Result += Current.cross(Next);
+        }
+
+        Result *= 0.5f;
+    }
+
+    return Result;
+}
