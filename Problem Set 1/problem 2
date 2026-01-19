@@ -1,1 +1,60 @@
+// COS30008 - 2026 - Problem set 1
 
+// Nguyen Hoang Phuc Anh - 105551545
+
+#include "Polynomial.h"
+
+#include <cmath>
+
+#include <stdexcept>
+
+using namespace std;
+
+double Polynomial::operator()( double aX ) const
+{
+    double result = 0.0;
+    for (size_t i = 0; i <= fDegree; i++)
+    {
+        result += fCoeffs[i] * std::pow(aX, i);
+    }
+    return result;
+}
+
+Polynomial Polynomial::getDerivative() const
+{
+    Polynomial result;
+
+    if (fDegree == 0)
+    {
+        result.fDegree = 0;
+        result.fCoeffs[0] = 0.0;
+        return result;
+    }
+
+    result.fDegree = fDegree - 1;
+    for (size_t i = 1; i <= fDegree; i++)
+    {
+        result.fCoeffs[i - 1] = fCoeffs[i] * i;
+    }
+    return result;
+}
+
+Polynomial Polynomial::getIndefiniteIntegral() const
+{
+    Polynomial result;
+
+    result.fDegree = fDegree + 1;
+    result.fCoeffs[0] = 0.0;
+    
+    for (size_t i = 0; i <=fDegree; i++)
+    {
+        result.fCoeffs[i + 1] = fCoeffs[i] / (i + 1);
+    }
+    return result;
+}
+
+double Polynomial::getDefiniteIntegral( double aXLow, double aXHigh ) const
+{
+    Polynomial integral = getIndefiniteIntegral();
+    return integral(aXHigh) - integral(aXLow);
+}
