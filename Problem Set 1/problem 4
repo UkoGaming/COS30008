@@ -1,1 +1,19 @@
+// COS30008 - 2026 - Problem set 1
 
+// Nguyen Hoang Phuc Anh - 105551545
+
+#include "BernsteinBasisPolynomial.h"   
+
+#include <cmath>
+
+using namespace std;
+
+BernsteinBasisPolynomial::BernsteinBasisPolynomial( unsigned int aV, unsigned int aN ) : fFactor( aN, aV ) {};
+
+double BernsteinBasisPolynomial::operator()(double aX)const
+{
+    unsigned int n = fFactor.getN();
+    unsigned int v = fFactor.getK();
+
+    return fFactor() * pow(aX, v) * pow(1 - aX, n - v);
+}
